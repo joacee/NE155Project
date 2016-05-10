@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[7]:
 
 import numpy as np
 import operator
@@ -11,7 +11,7 @@ from scipy import linalg
 import time
 
 
-# In[2]:
+# In[8]:
 
 def Gausseidel(A,x,b,tol=0.000001,sc=0.000001,iteration = 1000):
     # A,x,b - matrices defining the problem
@@ -45,7 +45,7 @@ def Gausseidel(A,x,b,tol=0.000001,sc=0.000001,iteration = 1000):
     return xnew, iterations
 
 
-# In[3]:
+# In[9]:
 
 def differencematrix(V):
     # V - matrix defining the grid
@@ -59,7 +59,7 @@ def differencematrix(V):
     
 
 
-# In[18]:
+# In[10]:
 
 def finitevolume(V,D,S,absorption,T=0,B=0,L=0,R=0):
     # V,D,S, absorption - matrices defining the problem. V sets the grid, D sets cell-centered diffusion constants
@@ -188,7 +188,7 @@ def finitevolume(V,D,S,absorption,T=0,B=0,L=0,R=0):
             
 
 
-# In[19]:
+# In[11]:
 
 def inputFile(fileName):
     inputfile = open(fileName,'r')
@@ -297,7 +297,7 @@ def inputFile(fileName):
     return D, absorption, S, x, y, T, B, L, R
 
 
-# In[27]:
+# In[16]:
 
 result = inputFile('InputFile.txt')
 D3 = result[0]
@@ -335,11 +335,13 @@ target.write('Input file            : InputFile.txt\n')
 target.write('Output file           : 2DDifussionSolverOutput.txt\n')
 target.write('================================================================================\n')
 target.write('Number of Iterations: ' + str(sol3[1]) +'\n\n')
-target.write('Flux Solution Matrix:\n' + str(plotsol3))
+target.write('Flux Solution Matrix:\n' + str(plotsol3) +'\n\n')
+target.write('X vector:\n' + str(V3[0]) +'\n\n')
+target.write('Y vector:\n' + str(V3[1]) +'\n\n')
 target.close()
 
 
-# In[ ]:
+# In[17]:
 
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
@@ -357,6 +359,9 @@ surf = ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap=cm.coolwarm,
 ax.zaxis.set_major_locator(LinearLocator(10))
 ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
 fig.colorbar(surf, shrink=0.5, aspect=5)
+ax.set_xlabel('X axis')
+ax.set_ylabel('Y axis')
+ax.set_zlabel('flux')
 plt.show()
 
 
